@@ -1,5 +1,13 @@
+@import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-}
+  background: #00b0cf;
+  color: white; }
+
+h1, h2, h3 {
+  -webkit-font-smoothing: antialiased; }
+
+.container {
+  max-width: 770px; }
