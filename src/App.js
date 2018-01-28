@@ -64,29 +64,52 @@ class Form extends Component {
     this.setState({email: e.target.value})
   }
 
-  handleEmailClick = () => {
+  handleEmailClick = (e) => {
     this.setState({'step': 2})
   }
 
-  storeGenreList = (e) => {
-    console.log(e.target.value);
+  storeCheckboxes(e) {
+    e.preventDefault();
+    
+    // convert node list to an array
+    const checkboxArray = Array.prototype.slice.call(this.form);
+
+    // filtering checked checkboxes
+    const checkedCheckboxes = checkboxArray.filter(input => input.checked);
+
+    // mapping checked checkboxes to new array
+    this.checkedCheckboxesValues = checkedCheckboxes.map(input => input.value);
   }
 
-  storeInstrumentList = (e) => {
-    console.log(e.target.value);
+  handleGenreClick = (e) => {
+    this.storeCheckboxes(e);
+    // upating state with genre values
+    this.setState({'step': 3,
+                   'genres': this.checkedCheckboxesValues
+                  })
   }
 
-  handleGenreClick = () => {
-    this.setState({'step': 3})
+  handleInstrumentClick = (e) => {
+    this.storeCheckboxes(e);
+    // upating state with genre values
+    this.setState({'step': 4,
+                   'instruments': this.checkedCheckboxesValues
+                  })
+  }
+
+  handleSliderChange = (item,index) => {
+    console.log(item.value);
   }
 
   render() {
+    console.log('state is ',this.state);
     return (
       <div className="form-inner">
-      <form className="app__form-group form-group">
+      <form className="app__form-group form-group" ref={form => this.form = form}>
         {this.state.step === 1 && <Email value={this.state.email} onchange={this.handleEmailChange} onclick={this.handleEmailClick}/>}
-        {this.state.step === 2 && <Checklist options={this.genreOptions} onclick={this.handleGenreClick} onchange={this.storeGenreList}/>}
-        {this.state.step === 3 && <Checklist options={this.instrumentOptions} onchange={this.storeInstrumentList}/>}
+        {this.state.step === 2 && <Checklist options={this.genreOptions} onclick={this.handleGenreClick}/>}
+        {this.state.step === 3 && <Checklist options={this.instrumentOptions} onclick={this.handleInstrumentClick}/>}
+        {this.state.step === 4 && <Sliderlist options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments}/>}
       </form>
       </div>
     )
@@ -117,7 +140,7 @@ class Checklist extends Component {
         transitionAppearTimeout={0}
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
-        <label key={item.label}><input key={item.label} type="checkbox" value={item.label} onChange={this.props.onchange}/>{item.label}</label>
+        <label key={item.label}><input key={item.label} type="checkbox" value="50" onChange={this.props.onchange}/>{item.label}</label>
         </CSSTransitionGroup>
     )
   }
@@ -132,6 +155,27 @@ class Checklist extends Component {
     )
   }
 }
+
+class Sliderlist extends Component {
+  toItem = (item,idx) => {
+    const {label} = this.props;
+    return (
+        <div key={idx}>
+          {label[idx]}
+          <input onChange={()=>{this.props.onchange(item,idx)}} key={idx} name={item.label} type="range" min="1" max="100" value={item.value} className="slider"/>
+        </div>
+      )
+    }
+
+    render() {
+      const {options} = this.props;
+      return (
+        <div>
+          {options.map(this.toItem)}
+        </div>
+      )
+    }
+  }
 
 class Button extends Component {
   render() {
