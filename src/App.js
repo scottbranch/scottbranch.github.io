@@ -8,10 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className={cx('app')}>
-        <h3>Enter your email and let's get started with your profile!</h3>
-        <div className="app__inner">
           <Form/>
-        </div>
       </div>
     );
   }
@@ -74,6 +71,11 @@ class Form extends Component {
       class: 'instrument',
     }]
 
+  step1Heading = "Enter your email and let's get started with your profile!";
+  step2Heading = "Alright! Lets pick what genres of music youre interested in playing.";
+  step3Heading = "Now justt check all of the instruments you play.";
+  step4Heading = "Use the sliders to rate how proficient you are in each instrument. 1 being you just started, 100 being youre touring with Beyonce.";
+
   handleEmailChange = (e) => {
     this.setState({email: e.target.value})
   }
@@ -131,13 +133,18 @@ class Form extends Component {
   render() {
     console.log('state is ',this.state);
     return (
-      <div className="form-inner">
-      <form className="app__form-group form-group" ref={form => this.form = form}>
-        <Email isactive={this.state.step === 1 ? "active" : ""} value={this.state.email} onchange={this.handleEmailChange} onclick={this.handleEmailClick}/>
-        <Checklist isactive={this.state.step === 2 ? "active" : ""} options={this.genreOptions} onclick={this.handleGenreClick}/>
-        <Checklist isactive={this.state.step === 3 ? "active" : ""} options={this.instrumentOptions} onchange={this.handleInstrumentChange} onclick={this.handleInstrumentClick}/>
-        <Sliderlist isactive={this.state.step === 4 ? "active" : ""} options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments}/>
-      </form>
+      <div>
+        <Heading text={this.step1Heading}/>
+        <div className="app__inner">
+          <div className="form-inner">
+          <form className="app__form-group form-group" ref={form => this.form = form}>
+            <Email isactive={this.state.step === 1 ? "active" : ""} value={this.state.email} onchange={this.handleEmailChange} onclick={this.handleEmailClick}/>
+            <Checklist isactive={this.state.step === 2 ? "active" : ""} options={this.genreOptions} onclick={this.handleGenreClick}/>
+            <Checklist isactive={this.state.step === 3 ? "active" : ""} options={this.instrumentOptions} onchange={this.handleInstrumentChange} onclick={this.handleInstrumentClick}/>
+            <Sliderlist isactive={this.state.step === 4 ? "active" : ""} options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments}/>
+          </form>
+          </div>
+        </div>
       </div>
     )
   }
@@ -202,6 +209,15 @@ class Button extends Component {
     const {text,onclick} = this.props;
     return (
       <button key="button" type="button" className="btn btn-light btn-lg" onClick={onclick}>{this.props.text}</button>
+    )
+  }
+}
+
+class Heading extends Component {
+  render() {
+    const {text} = this.props;
+    return (
+      <h3>{text}</h3>
     )
   }
 }
