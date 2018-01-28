@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import cx from 'classnames';
 import './App.css';
 
 class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <div className={cx('app')}>
         <h3>Enter your email and let's get started with your profile!</h3>
         <div className="app__inner">
           <Form/>
@@ -19,45 +20,58 @@ class App extends Component {
 class Form extends Component {
 
   state = {
-    'step': 1
+    'step': 1,
+    'instruments': []
   }
 
   genreOptions = [{
       label: 'Rock',
+      class: 'genre',
     },
     {
       label: 'Hip-Hop',
+      class: 'genre',
     },
     {
       label: 'Country',
+      class: 'genre',
     },
     {
       label: 'Electronic',
+      class: 'genre',
     },
     {
       label: 'Classical',
+      class: 'genre',
     },
     {
       label: 'Metal',
+      class: 'genre',
     }]
 
   instrumentOptions = [{
       label: 'Guitar',
+      class: 'instrument',
     },
     {
       label: 'Bass',
+      class: 'instrument',
     },
     {
       label: 'Drums',
+      class: 'instrument',
     },
     {
       label: 'Piano',
+      class: 'instrument',
     },
     {
       label: 'Vocals',
+      class: 'instrument',
     },
     {
       label: 'Saxaphone',
+      class: 'instrument',
     }]
 
   handleEmailChange = (e) => {
@@ -68,37 +82,50 @@ class Form extends Component {
     this.setState({'step': 2})
   }
 
-  storeCheckboxes(e) {
+  handleGenreClick = (e) => {
     e.preventDefault();
     
     // convert node list to an array
-    const checkboxArray = Array.prototype.slice.call(this.form);
+    const links = document.getElementsByClassName('genre');
+
+    const genreArray = Array.prototype.slice.call(links);
+    console.log('this form is' ,this.form);
 
     // filtering checked checkboxes
-    const checkedCheckboxes = checkboxArray.filter(input => input.checked);
+    const checkedCheckboxes = genreArray.filter(input => input.checked);
 
     // mapping checked checkboxes to new array
-    this.checkedCheckboxesValues = checkedCheckboxes.map(input => input.value);
-  }
-
-  handleGenreClick = (e) => {
-    this.storeCheckboxes(e);
+    const genreValues = checkedCheckboxes.map(input => input.value);
     // upating state with genre values
     this.setState({'step': 3,
-                   'genres': this.checkedCheckboxesValues
+                   'genres': genreValues
                   })
+  }
+
+  handleInstrumentChange = () => {
+    
+    // convert node list to an array
+    const links = document.getElementsByClassName('instrument');
+
+    const instrumentArray = Array.prototype.slice.call(links);
+
+    // filtering checked checkboxes
+    const checkedCheckboxes = instrumentArray.filter(input => input.checked);
+
+    // mapping checked checkboxes to new array
+    const instrumentValues = checkedCheckboxes.map(input => input.value);
+    // upating state with genre values
+    this.setState({'instruments': instrumentValues})
   }
 
   handleInstrumentClick = (e) => {
-    this.storeCheckboxes(e);
-    // upating state with genre values
-    this.setState({'step': 4,
-                   'instruments': this.checkedCheckboxesValues
-                  })
+    e.preventDefault();
+
+    this.setState({'step': 4})
   }
 
-  handleSliderChange = (item,index) => {
-    console.log(item.value);
+  handleSliderChange = (item,index,e) => {
+    console.log(item,index,e);
   }
 
   render() {
@@ -106,10 +133,10 @@ class Form extends Component {
     return (
       <div className="form-inner">
       <form className="app__form-group form-group" ref={form => this.form = form}>
-        {this.state.step === 1 && <Email value={this.state.email} onchange={this.handleEmailChange} onclick={this.handleEmailClick}/>}
-        {this.state.step === 2 && <Checklist options={this.genreOptions} onclick={this.handleGenreClick}/>}
-        {this.state.step === 3 && <Checklist options={this.instrumentOptions} onclick={this.handleInstrumentClick}/>}
-        {this.state.step === 4 && <Sliderlist options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments}/>}
+        <Email isactive={this.state.step === 1 ? "active" : ""} value={this.state.email} onchange={this.handleEmailChange} onclick={this.handleEmailClick}/>
+        <Checklist isactive={this.state.step === 2 ? "active" : ""} options={this.genreOptions} onclick={this.handleGenreClick}/>
+        <Checklist isactive={this.state.step === 3 ? "active" : ""} options={this.instrumentOptions} onchange={this.handleInstrumentChange} onclick={this.handleInstrumentClick}/>
+        <Sliderlist isactive={this.state.step === 4 ? "active" : ""} options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments}/>
       </form>
       </div>
     )
@@ -119,11 +146,11 @@ class Form extends Component {
 class Email extends Component {
 
   render() {
-    const { email,onchange,onclick } = this.props;
+    const { email,onchange,onclick,isactive} = this.props;
     return (
-      <div className="app__form-step app__form-step--1">
-        <input value={email} onChange={onchange} className="form-control" name="email" type="email" placeholder="jane@gmail.com" autoComplete="off"></input>
-        <Button text="Lets Go!" onclick={onclick}/>
+      <div className={`app__form-step app__form-step--1 ${isactive}`} key="step1container">
+        <input key="step1input" value={email} onChange={onchange} className="form-control" name="email" type="email" placeholder="jane@gmail.com" autoComplete="off"></input>
+        <Button key="step1button" text="Lets Go!" onclick={onclick}/>
       </div>
     )
   }
@@ -133,22 +160,14 @@ class Checklist extends Component {
 
   toItem = (item,idx) => {
     return (
-      <CSSTransitionGroup
-        key={idx}
-        transitionName="example"
-        transitionAppear={true}
-        transitionAppearTimeout={0}
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-        <label key={item.label}><input key={item.label} type="checkbox" value="50" onChange={this.props.onchange}/>{item.label}</label>
-        </CSSTransitionGroup>
+      <label key={item.label}><input key={item.label} className={item.class} type="checkbox" value={item.label} onChange={this.props.onchange}/>{item.label}</label>
     )
   }
 
   render() {
-    const {options,onclick} = this.props;
+    const {options,onclick,isactive} = this.props;
     return (
-      <div className="app__form-step app__form-step--2">
+      <div className={`app__form-step app__form-step--2 ${isactive}`}>
         {options.map(this.toItem)}
         <Button text="Next" onclick={onclick}/>
       </div>
@@ -159,18 +178,19 @@ class Checklist extends Component {
 class Sliderlist extends Component {
   toItem = (item,idx) => {
     const {label} = this.props;
+    console.log(item);
     return (
-        <div key={idx}>
+        <label key={idx}>
           {label[idx]}
-          <input onChange={()=>{this.props.onchange(item,idx)}} key={idx} name={item.label} type="range" min="1" max="100" value={item.value} className="slider"/>
-        </div>
+          <input onChange={(e)=>{this.props.onchange(item,idx,e)}} key={idx} name={item.label} type="range" min="1" max="100" value={item.value} className="slider"/>
+        </label>
       )
     }
 
     render() {
-      const {options} = this.props;
+      const {options,isactive} = this.props;
       return (
-        <div>
+        <div className={`app__form-step app__form-step--4 ${isactive}`}>
           {options.map(this.toItem)}
         </div>
       )
@@ -181,7 +201,7 @@ class Button extends Component {
   render() {
     const {text,onclick} = this.props;
     return (
-      <button key="1" type="button" className="btn btn-light btn-lg" onClick={onclick}>{this.props.text}</button>
+      <button key="button" type="button" className="btn btn-light btn-lg" onClick={onclick}>{this.props.text}</button>
     )
   }
 }

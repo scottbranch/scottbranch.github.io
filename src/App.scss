@@ -1,11 +1,4 @@
-.example-appear {
-  opacity: 0;
-  transition: all 400ms 500ms ease;
-
-  &.example-appear-active {
-    opacity: 1;
-  }
-}
+$transitionSpeed: 250ms;
 
 .app {
   display: flex;
@@ -16,6 +9,41 @@
   height: 100vh;
 
   &__form-step {
+    left: 50%;
+    transform: translate3d(-50%,0px,0px);
+    visibility: hidden;
+
+    label,
+    button,
+    .form-control {
+      transform: translate3d(0,20px,0);
+      opacity: 0;
+      visibility: hidden;
+      transition: all $transitionSpeed ease;
+    }
+
+    label,
+    .form-control {
+      transition: all $transitionSpeed 100ms ease;
+    }
+
+    &.active {
+      visibility: visible;
+      label,
+      .form-control {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0,0,0);
+        transition: all $transitionSpeed $transitionSpeed ease;
+      }
+      button {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0,0,0);
+        transition: all $transitionSpeed 450ms ease, box-shadow 250ms ease;;
+      }
+    }
+
     label {
       display: block;
       font-size: 27px;
@@ -39,7 +67,5 @@
     max-width: 150px;
     text-align: left;
     margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
