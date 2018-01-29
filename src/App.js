@@ -73,7 +73,7 @@ class Form extends Component {
 
   stepHeading = [
     "Enter your full name and let's get started with your profile!",
-    "Alright! Lets pick what genres of music youre interested in playing.",
+    "Alright! Lets pick what genres of music you're interested in playing.",
     "Great! Now check any of the instruments you know how to play.",
     "Use the sliders to rate how proficient you are in each instrument. 1 being you just started, 100 being you're touring with Beyonce.",
     "Awesome! Weve got your base profile ready to start pairing you with some local musicians!"
