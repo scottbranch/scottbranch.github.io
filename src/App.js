@@ -14,11 +14,15 @@ class App extends Component {
 
 class Form extends Component {
 
-  state = {
-    'step': 1,
-    'name': '',
-    'genres': [],
-    'instruments': []
+  constructor() {
+    super();
+
+    this.state = {
+      'step': 1,
+      'name': '',
+      'genres': [],
+      'instruments': []
+    }
   }
 
   genreOptions = [{
@@ -105,7 +109,8 @@ class Form extends Component {
 
     // mapping checked checkboxes to new array
     const genreValues = checkedCheckboxes.map(input => input.value);
-    this.setState({'genres':genreValues})
+
+    this.setState({'genres': genreValues})
   }
 
   handleGenreClick = () => {
@@ -140,7 +145,7 @@ class Form extends Component {
       instrumentError.classList.add('show');
     } else {
       this.setState({'step': 4})
-      instrumentError.classList.add('show');
+      instrumentError.classList.remove('show');
     }
   }
 
@@ -169,7 +174,7 @@ class Form extends Component {
     }
 
     nameInput.value = '';
-    this.setState({'step': 1,'genres':[],'instruments':[]})
+    this.setState({'name':'','step': 1,'genres':[],'instruments':[]})
   }
 
   render() {
