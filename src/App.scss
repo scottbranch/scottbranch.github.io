@@ -1,46 +1,57 @@
 $transitionSpeed: 250ms;
+$ns: '.app';
 
-.app {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+#{$ns} {
   width: 100%;
   height: 100vh;
 
   &__form-step {
-    left: 50%;
-    transform: translate3d(-50%,0px,0px);
     visibility: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 
-    label,
+    .app__list-items,
+    .form-control,
     button,
-    .form-control {
+    h3
+    {
       transform: translate3d(0,20px,0);
       opacity: 0;
       visibility: hidden;
       transition: all $transitionSpeed ease;
     }
 
-    label,
+    .app__list-items,
     .form-control {
-      transition: all $transitionSpeed 100ms ease;
+      transition: all $transitionSpeed 70ms ease;
+    }
+
+    h3 {
+      transition: all $transitionSpeed 140ms ease;
     }
 
     &.active {
       visibility: visible;
-      label,
-      .form-control {
+      h3 {
         opacity: 1;
         visibility: visible;
         transform: translate3d(0,0,0);
         transition: all $transitionSpeed $transitionSpeed ease;
       }
+      .app__list-items,
+      .form-control {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0,0,0);
+        transition: all $transitionSpeed 320ms ease;
+      }
       button {
         opacity: 1;
         visibility: visible;
         transform: translate3d(0,0,0);
-        transition: all $transitionSpeed 450ms ease, box-shadow 250ms ease;;
+        transition: all $transitionSpeed 390ms ease, box-shadow 250ms ease;
       }
     }
 
@@ -58,14 +69,221 @@ $transitionSpeed: 250ms;
     }
   }
 
+  &__list-items {
+    text-align: left;
+    max-width: 220px;
+    margin: 0 auto;
+    padding-left: 50px;
+  }
+
   &__form-group {
     position: relative;
-    height: 100px;
+    height: 100vh;
+    margin: 0 auto;
+  }
+
+  &__form-step--1 {
+    input {
+      max-width: 670px;
+    }
   }
 
   &__form-step--2 {
-    max-width: 150px;
-    text-align: left;
+    max-width: 830px;
+    text-align: center;
     margin: 0 auto;
+
+    h3 {
+      max-width: 780px;
+    }
   }
+
+  &__form-step--4 {
+    h3 {
+      max-width: 950px;
+    }
+    .app__list-items {
+      text-align: left;
+      max-width: 450px;
+      margin: 0 auto;
+      padding-left: 0;
+      text-align: left;
+    }
+    label {
+      font-size: 21px;
+    }
+    .app__slider-title {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__form-step--5 {
+    h3 {
+      max-width: 620px;
+    }
+    .app__list-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      padding: 30px 60px;
+      border-radius: 15px;
+      color: #6b7c93;
+      box-shadow: 0 8px 20px 0 rgba(0,0,0,.2);
+    }
+    h4 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+    ul {
+      margin: 0 0 20px;
+      padding-left: 10px;
+    }
+    li {
+      font-weight: 300;
+      list-style: none;
+    }
+    p {
+      margin-bottom: 0.2rem;
+      font-size: 18px;
+    }
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    button.image-button {
+      border: 1px dashed #6b7c93;
+      color: gray;
+      background-color: white;
+      padding: 100px 50px;
+      border-radius: 70%;
+      font-size: 18px;
+      font-weight: 300;
+      transition: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .upload-btn-wrapper input[type=file] {
+      font-size: 152px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    ::-webkit-file-upload-button {
+        cursor:pointer;
+    }
+  }
+
+  .boom {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    left: 0;
+    top: 0;
+
+    > div {
+      margin: 0 auto;
+    }
+
+    h3 {
+      color: #6b7c93;
+      margin-bottom: 20px;
+    }
+
+    img {
+      display: block;
+    }
+
+    button {
+      background: #6b7c93;
+      color: white;
+    }
+  }
+
+  .error {
+    font-size: 19px;
+    color: red;
+    margin-top: 40px;
+    opacity: 0;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+
+  input[type=range] {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 100%; /* Specific width is required for Firefox. */
+    height: 2px;
+    background: white; /* Otherwise white in Chrome */
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  input[type=range]:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+  }
+
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+
+    /* Hides the slider so custom styles can be added */
+    background: white; 
+    border-color: transparent;
+    color: transparent;
+  }
+
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 10px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -3px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  height: 20px;
+  width: 10px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  height: 20px;
+  width: 10px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
 }

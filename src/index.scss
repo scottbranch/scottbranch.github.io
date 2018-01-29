@@ -22,13 +22,14 @@ h3 {
   font-size: 40px;
   max-width: 560px;
   text-align: center;
-  margin-bottom: 70px;
+  margin: 0 auto 70px;
 }
 
 .app__inner {
   width: 100%;
   max-width: 770px;
   text-align: center;
+  margin: 0 auto;
 }
 
 .form-control,
@@ -44,12 +45,11 @@ h3 {
 
 form {
   width: 100%;
-  margin: 1rem auto;
+  margin: 0 auto;
 }
 
 .form-inner {
   width: 100%;
-  max-width: 550px;
   margin: 0 auto;
 }
 
@@ -62,7 +62,7 @@ form {
 }
 
 .app__form-step {
-  position: absolute;
+  //position: absolute;
   width: 100%;
 }
 
@@ -73,7 +73,7 @@ form {
   color: $blue;
   top: 30px;
   position: relative;
-  left: 14px;
+  box-shadow: 0 7px 23px 0 rgba(0, 0, 0, 0.1);
 
   &:hover {
     box-shadow: 0 8px 20px 0 rgba(0,0,0,.2);

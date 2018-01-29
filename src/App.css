@@ -1,37 +1,46 @@
 .app {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   width: 100%;
-  height: 100vh; }
+  height: 100vh;
+  /* Special styling for WebKit/Blink */
+  /* All the same stuff for Firefox */
+  /* All the same stuff for IE */ }
   .app__form-step {
+    visibility: hidden;
+    position: absolute;
     left: 50%;
-    transform: translate3d(-50%, 0px, 0px);
-    visibility: hidden; }
-    .app__form-step label,
+    top: 50%;
+    transform: translate(-50%, -50%); }
+    .app__form-step .app__list-items,
+    .app__form-step .form-control,
     .app__form-step button,
-    .app__form-step .form-control {
+    .app__form-step h3 {
       transform: translate3d(0, 20px, 0);
       opacity: 0;
       visibility: hidden;
       transition: all 250ms ease; }
-    .app__form-step label,
+    .app__form-step .app__list-items,
     .app__form-step .form-control {
-      transition: all 250ms 100ms ease; }
+      transition: all 250ms 70ms ease; }
+    .app__form-step h3 {
+      transition: all 250ms 140ms ease; }
     .app__form-step.active {
       visibility: visible; }
-      .app__form-step.active label,
-      .app__form-step.active .form-control {
+      .app__form-step.active h3 {
         opacity: 1;
         visibility: visible;
         transform: translate3d(0, 0, 0);
         transition: all 250ms 250ms ease; }
+      .app__form-step.active .app__list-items,
+      .app__form-step.active .form-control {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0, 0, 0);
+        transition: all 250ms 320ms ease; }
       .app__form-step.active button {
         opacity: 1;
         visibility: visible;
         transform: translate3d(0, 0, 0);
-        transition: all 250ms 450ms ease, box-shadow 250ms ease; }
+        transition: all 250ms 390ms ease, box-shadow 250ms ease; }
     .app__form-step label {
       display: block;
       font-size: 27px;
@@ -41,10 +50,154 @@
       top: -5px;
       position: relative;
       left: -3px; }
+  .app__list-items {
+    text-align: left;
+    max-width: 220px;
+    margin: 0 auto;
+    padding-left: 50px; }
   .app__form-group {
     position: relative;
-    height: 100px; }
-  .app__form-step--2 {
-    max-width: 150px;
-    text-align: left;
+    height: 100vh;
     margin: 0 auto; }
+  .app__form-step--1 input {
+    max-width: 670px; }
+  .app__form-step--2 {
+    max-width: 830px;
+    text-align: center;
+    margin: 0 auto; }
+    .app__form-step--2 h3 {
+      max-width: 780px; }
+  .app__form-step--4 h3 {
+    max-width: 950px; }
+  .app__form-step--4 .app__list-items {
+    text-align: left;
+    max-width: 450px;
+    margin: 0 auto;
+    padding-left: 0;
+    text-align: left; }
+  .app__form-step--4 label {
+    font-size: 21px; }
+  .app__form-step--4 .app__slider-title {
+    display: flex;
+    justify-content: space-between; }
+  .app__form-step--5 h3 {
+    max-width: 620px; }
+  .app__form-step--5 .app__list-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    padding: 30px 60px;
+    border-radius: 15px;
+    color: #6b7c93;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2); }
+  .app__form-step--5 h4 {
+    font-size: 2.2rem;
+    margin-bottom: 20px; }
+  .app__form-step--5 ul {
+    margin: 0 0 20px;
+    padding-left: 10px; }
+  .app__form-step--5 li {
+    font-weight: 300;
+    list-style: none; }
+  .app__form-step--5 p {
+    margin-bottom: 0.2rem;
+    font-size: 18px; }
+  .app__form-step--5 .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block; }
+    .app__form-step--5 .upload-btn-wrapper:hover {
+      cursor: pointer; }
+  .app__form-step--5 button.image-button {
+    border: 1px dashed #6b7c93;
+    color: gray;
+    background-color: white;
+    padding: 100px 50px;
+    border-radius: 70%;
+    font-size: 18px;
+    font-weight: 300;
+    transition: none; }
+    .app__form-step--5 button.image-button:hover {
+      cursor: pointer; }
+  .app__form-step--5 .upload-btn-wrapper input[type=file] {
+    font-size: 152px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0; }
+    .app__form-step--5 .upload-btn-wrapper input[type=file]:hover {
+      cursor: pointer; }
+  .app__form-step--5 ::-webkit-file-upload-button {
+    cursor: pointer; }
+  .app .boom {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    left: 0;
+    top: 0; }
+    .app .boom > div {
+      margin: 0 auto; }
+    .app .boom h3 {
+      color: #6b7c93;
+      margin-bottom: 20px; }
+    .app .boom img {
+      display: block; }
+    .app .boom button {
+      background: #6b7c93;
+      color: white; }
+  .app .error {
+    font-size: 19px;
+    color: red;
+    margin-top: 40px;
+    opacity: 0; }
+    .app .error.show {
+      opacity: 1; }
+  .app input[type=range] {
+    -webkit-appearance: none;
+    /* Hides the slider so that custom slider can be made */
+    width: 100%;
+    /* Specific width is required for Firefox. */
+    height: 2px;
+    background: white;
+    /* Otherwise white in Chrome */ }
+  .app input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; }
+  .app input[type=range]:focus {
+    outline: none;
+    /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+  .app input[type=range]::-ms-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    /* Hides the slider so custom styles can be added */
+    background: white;
+    border-color: transparent;
+    color: transparent; }
+  .app input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: -3px;
+    /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }
+  .app input[type=range]::-moz-range-thumb {
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer; }
+  .app input[type=range]::-ms-thumb {
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer; }
