@@ -1,4 +1,5 @@
 $transitionSpeed: 250ms;
+$baseColor: #00b0cf;
 $ns: '.app';
 
 #{$ns} {
@@ -226,9 +227,53 @@ $ns: '.app';
     color: red;
     margin-top: 40px;
     opacity: 0;
+    -webkit-font-smoothing: antialiased;
 
     &.show {
       opacity: 1;
+    }
+  }
+
+.checkbox {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    left: -9px;
+    top: 0;
+
+    &:before {
+      content: '';
+      transition: transform 150ms ease;
+      transform: rotate(-45deg) scale(0, 0);
+      position: absolute;
+      left: 3px;
+      top: 4px;
+      z-index: 1;
+      width: 15px;
+      height: 7px;
+      border: 3px solid #3fcc2f; 
+      border-top-style: none;
+      border-right-style: none;
+    }
+    
+    &:checked {
+      &:before {
+         transform: rotate(-45deg) scale(1, 1);
+        } 
+    }
+    
+    &:after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      //border: 1px solid #16a085;
+      cursor: pointer;
     }
   }
 
@@ -258,32 +303,32 @@ $ns: '.app';
     color: transparent;
   }
 
-/* Special styling for WebKit/Blink */
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 20px;
-  width: 10px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-  margin-top: -3px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-}
+  /* Special styling for WebKit/Blink */
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: -3px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  }
 
-/* All the same stuff for Firefox */
-input[type=range]::-moz-range-thumb {
-  height: 20px;
-  width: 10px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-}
+  /* All the same stuff for Firefox */
+  input[type=range]::-moz-range-thumb {
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+  }
 
-/* All the same stuff for IE */
-input[type=range]::-ms-thumb {
-  height: 20px;
-  width: 10px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-}
+  /* All the same stuff for IE */
+  input[type=range]::-ms-thumb {
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+  }
 }

@@ -156,9 +156,42 @@
     font-size: 19px;
     color: red;
     margin-top: 40px;
-    opacity: 0; }
+    opacity: 0;
+    -webkit-font-smoothing: antialiased; }
     .app .error.show {
       opacity: 1; }
+  .app .checkbox {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    left: -9px;
+    top: 0; }
+    .app .checkbox:before {
+      content: '';
+      transition: transform 150ms ease;
+      transform: rotate(-45deg) scale(0, 0);
+      position: absolute;
+      left: 3px;
+      top: 4px;
+      z-index: 1;
+      width: 15px;
+      height: 7px;
+      border: 3px solid #3fcc2f;
+      border-top-style: none;
+      border-right-style: none; }
+    .app .checkbox:checked:before {
+      transform: rotate(-45deg) scale(1, 1); }
+    .app .checkbox:after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      cursor: pointer; }
   .app input[type=range] {
     -webkit-appearance: none;
     /* Hides the slider so that custom slider can be made */

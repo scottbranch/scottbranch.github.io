@@ -21,8 +21,10 @@ class Form extends Component {
       'step': 1,
       'name': '',
       'genres': [],
-      'instruments': []
+      'instruments': this.instrumentOptions
     }
+
+    this.baseState = this.state;
   }
 
   genreOptions = [{
@@ -51,28 +53,46 @@ class Form extends Component {
     }]
 
   instrumentOptions = [{
+      value: 'Guitar',
       label: 'Guitar',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     },
     {
+      value: 'Bass',
       label: 'Bass',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     },
     {
+      value: 'Drums',
       label: 'Drums',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     },
     {
+      value: 'Piano',
       label: 'Piano',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     },
     {
+      value: 'Vocals',
       label: 'Vocals',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     },
     {
+      value: 'Saxaphone',
       label: 'Saxaphone',
       class: 'instrument',
+      isChecked: false,
+      range: 50,
     }]
 
   stepHeading = [
@@ -80,7 +100,7 @@ class Form extends Component {
     "Alright! Lets pick what genres of music you're interested in playing.",
     "Great! Now check any of the instruments you know how to play.",
     "Use the sliders to rate how proficient you are in each instrument. 1 being you just started, 100 being you're touring with Beyonce.",
-    "Awesome! Weve got your base profile ready to start pairing you with some local musicians!"
+    "Awesome! We've got your base profile ready to start pairing you with some local musicians!"
   ]
 
   handleNameChange = (e) => {
@@ -123,25 +143,24 @@ class Form extends Component {
     }
   }
 
-  handleInstrumentChange = () => {
-    
-    // convert node list to an array
-    const links = document.getElementsByClassName('instrument');
-
-    const instrumentArray = Array.prototype.slice.call(links);
-
-    // filtering checked checkboxes
-    const checkedCheckboxes = instrumentArray.filter(input => input.checked);
-
-    // mapping checked checkboxes to new array
-    const instrumentValues = checkedCheckboxes.map(input => input.value);
-    // upating state with genre values
-    this.setState({'instruments': instrumentValues})
+  handleInstrumentChange = (item,index,e) => {
+    this.setState({
+      instruments: [
+        ...this.state.instruments.slice(0, index),
+        {
+          ...this.state.instruments[index],
+          isChecked: !this.state.instruments[index].isChecked,
+        },
+        ...this.state.instruments.slice(index + 1),
+      ]
+    })
   }
 
   handleInstrumentClick = () => {
     const instrumentError = document.getElementById('instrument-error');
-    if(this.state.instruments == '') {
+    const isActive = this.state.instruments.filter(o => o.isChecked);
+    
+    if(isActive.length == 0){
       instrumentError.classList.add('show');
     } else {
       this.setState({'step': 4})
@@ -149,8 +168,30 @@ class Form extends Component {
     }
   }
 
+  //grabs the true index of array item
+  //since they get filtered out when selecting options
+  findWithAttr (array, attr, value) {
+      for(var i = 0; i < array.length; i += 1) {
+          if(array[i][attr] === value) {
+              return i;
+          }
+      }
+      return -1;
+  }
+
   handleSliderChange = (item,index,e) => {
-    console.log(e.target.value);
+    let currentIndex = this.findWithAttr(this.state.instruments, 'value', item.value);
+
+    this.setState({
+      instruments: [
+        ...this.state.instruments.slice(0, currentIndex),
+        {
+          ...this.state.instruments[currentIndex],
+          range: e.target.value,
+        },
+        ...this.state.instruments.slice(currentIndex + 1),
+      ]
+    })
   }
 
   handleSliderClick = () => {
@@ -174,11 +215,10 @@ class Form extends Component {
     }
 
     nameInput.value = '';
-    this.setState({'name':'','step': 1,'genres':[],'instruments':[]})
+    this.setState(this.baseState);
   }
 
   render() {
-    console.log('state is ',this.state);
     return (
         <div className="app__inner">
           <div className="form-inner">
@@ -186,8 +226,8 @@ class Form extends Component {
             <Name isactive={this.state.step === 1 ? "active" : ""} value={this.state.email} onchange={this.handleNameChange} onclick={this.handleNameClick} text={this.stepHeading[0]}/>
             <Checklist isactive={this.state.step === 2 ? "active" : ""} options={this.genreOptions} onchange={this.handleGenreChange} onclick={this.handleGenreClick} text={this.stepHeading[1]} errorid="genre-error" errortext="Ah ah ah.."/>
             <Checklist isactive={this.state.step === 3 ? "active" : ""} options={this.instrumentOptions} onchange={this.handleInstrumentChange} onclick={this.handleInstrumentClick} text={this.stepHeading[2]} errorid="instrument-error" errortext="Don't sell yourself short."/>
-            <Sliderlist isactive={this.state.step === 4 ? "active" : ""} options={this.state.instruments} onchange={this.handleSliderChange} label={this.state.instruments} text={this.stepHeading[3]} onclick={this.handleSliderClick}/>
-            <Profilecard isactive={this.state.step === 5 ? "active" : ""} instruments={this.state.instruments} genres={this.state.genres} name={this.state.name} text={this.stepHeading[4]} onclick={this.handleBoom}/>
+            <Sliderlist isactive={this.state.step === 4 ? "active" : ""} options={this.state.instruments.filter(o => o.isChecked)} onchange={this.handleSliderChange} text={this.stepHeading[3]} onclick={this.handleSliderClick}/>
+            <Profilecard isactive={this.state.step === 5 ? "active" : ""} instruments={this.state.instruments.filter(o => o.isChecked)} genres={this.state.genres} name={this.state.name} text={this.stepHeading[4]} onclick={this.handleBoom}/>
             {this.state.step === 6 && <Boom onclick={this.handleRestart}/>}
           </form>
           </div>
@@ -215,7 +255,7 @@ class Checklist extends Component {
 
   toItem = (item,idx) => {
     return (
-      <label key={item.label}><input key={item.label} className={`checkbox ${item.class}`} type="checkbox" value={item.label} onChange={this.props.onchange}/>{item.label}</label>
+      <label key={item.label}><input key={item.label} className={`checkbox ${item.class}`} type="checkbox" value={item.label} onChange={(e)=>{this.props.onchange(item,idx,e)}}/>{item.label}</label>
     )
   }
 
@@ -236,13 +276,12 @@ class Checklist extends Component {
 
 class Sliderlist extends Component {
   toItem = (item,idx) => {
-    const {label} = this.props;
     return (
       <label key={idx}>
         <div className="app__slider-title">
-        <span>{label[idx]}</span><span>{item.value}/100</span>
+        <span>{item.value}</span><span><span>{item.range}</span>/100</span>
         </div>
-        <input onChange={(e)=>{this.props.onchange(item,idx,e)}} key={idx} name={item.label} type="range" min="1" max="100" value={item.value} className="slider"/>
+        <input onChange={(e)=>{this.props.onchange(item,idx,e)}} key={idx} name={item.value} type="range" min="1" max="100" className="slider"/>
       </label>
     )
   }
@@ -270,7 +309,7 @@ class Profilecard extends Component {
 
   toInstrument = (item,idx) => {
     return (
-      <li key={idx}>{item}  - skill level: 7/10</li>
+      <li key={idx}>{item.value}  - skill level: {item.range}/100</li>
     )
   }
 
