@@ -25,6 +25,8 @@ class Form extends Component {
     }
 
     this.baseState = this.state;
+
+    window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
   }
 
   genreOptions = [{
@@ -216,7 +218,7 @@ class Form extends Component {
 
     nameInput.value = '';
     this.setState(this.baseState);
-  }
+  }  
 
   render() {
     return (
