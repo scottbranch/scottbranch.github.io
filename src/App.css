@@ -67,71 +67,75 @@
     margin: 0 auto; }
     .app__form-step--2 h3 {
       max-width: 780px; }
-  .app__form-step--4 h3 {
-    max-width: 950px; }
-  .app__form-step--4 .app__list-items {
-    text-align: left;
-    max-width: 450px;
-    margin: 0 auto;
-    padding-left: 0;
-    text-align: left; }
-  .app__form-step--4 label {
-    font-size: 21px; }
-  .app__form-step--4 .app__slider-title {
-    display: flex;
-    justify-content: space-between; }
-  .app__form-step--5 h3 {
-    max-width: 620px; }
-  .app__form-step--5 .app__list-items {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 600px;
-    background: white;
-    padding: 30px 60px;
-    border-radius: 15px;
-    color: #6b7c93;
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2); }
-  .app__form-step--5 h4 {
-    font-size: 2.2rem;
-    margin-bottom: 20px; }
-  .app__form-step--5 ul {
-    margin: 0 0 20px;
-    padding-left: 10px; }
-  .app__form-step--5 li {
-    font-weight: 300;
-    list-style: none; }
-  .app__form-step--5 p {
-    margin-bottom: 0.2rem;
-    font-size: 18px; }
-  .app__form-step--5 .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block; }
-    .app__form-step--5 .upload-btn-wrapper:hover {
+  .app__form-step--4 {
+    transform: translate(-50%, -55%); }
+    .app__form-step--4 h3 {
+      max-width: 950px; }
+    .app__form-step--4 .app__list-items {
+      text-align: left;
+      max-width: 450px;
+      margin: 0 auto;
+      padding-left: 0;
+      text-align: left; }
+    .app__form-step--4 label {
+      font-size: 21px; }
+    .app__form-step--4 .app__slider-title {
+      display: flex;
+      justify-content: space-between; }
+  .app__form-step--5 {
+    transform: translate(-50%, -55%); }
+    .app__form-step--5 h3 {
+      max-width: 620px; }
+    .app__form-step--5 .app__list-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      padding: 30px 60px;
+      border-radius: 15px;
+      color: #6b7c93;
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2); }
+    .app__form-step--5 h4 {
+      font-size: 2.2rem;
+      margin-bottom: 20px; }
+    .app__form-step--5 ul {
+      margin: 0 0 20px;
+      padding-left: 10px; }
+    .app__form-step--5 li {
+      font-weight: 300;
+      list-style: none; }
+    .app__form-step--5 p {
+      margin-bottom: 0.2rem;
+      font-size: 18px; }
+    .app__form-step--5 .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block; }
+      .app__form-step--5 .upload-btn-wrapper:hover {
+        cursor: pointer; }
+    .app__form-step--5 button.image-button {
+      border: 1px dashed #6b7c93;
+      color: gray;
+      background-color: white;
+      padding: 100px 50px;
+      border-radius: 70%;
+      font-size: 18px;
+      font-weight: 300;
+      transition: none; }
+      .app__form-step--5 button.image-button:hover {
+        cursor: pointer; }
+    .app__form-step--5 .upload-btn-wrapper input[type=file] {
+      font-size: 152px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0; }
+      .app__form-step--5 .upload-btn-wrapper input[type=file]:hover {
+        cursor: pointer; }
+    .app__form-step--5 ::-webkit-file-upload-button {
       cursor: pointer; }
-  .app__form-step--5 button.image-button {
-    border: 1px dashed #6b7c93;
-    color: gray;
-    background-color: white;
-    padding: 100px 50px;
-    border-radius: 70%;
-    font-size: 18px;
-    font-weight: 300;
-    transition: none; }
-    .app__form-step--5 button.image-button:hover {
-      cursor: pointer; }
-  .app__form-step--5 .upload-btn-wrapper input[type=file] {
-    font-size: 152px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0; }
-    .app__form-step--5 .upload-btn-wrapper input[type=file]:hover {
-      cursor: pointer; }
-  .app__form-step--5 ::-webkit-file-upload-button {
-    cursor: pointer; }
   .app .boom {
     position: fixed;
     display: flex;
