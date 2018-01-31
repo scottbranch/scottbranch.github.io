@@ -293,16 +293,15 @@ $ns: '.app';
       width: 20px;
       height: 20px;
       background: #fff;
-      //border: 1px solid #16a085;
       cursor: pointer;
     }
   }
 
   input[type=range] {
-    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-    width: 100%; /* Specific width is required for Firefox. */
+    -webkit-appearance: none;
+    width: 100%;
     height: 2px;
-    background: white; /* Otherwise white in Chrome */
+    background: white;
   }
 
   input[type=range]::-webkit-slider-thumb {
@@ -310,7 +309,7 @@ $ns: '.app';
   }
 
   input[type=range]:focus {
-    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+    outline: none;
   }
 
   input[type=range]::-ms-track {
@@ -332,7 +331,7 @@ $ns: '.app';
     border-radius: 3px;
     background: #ffffff;
     cursor: pointer;
-    margin-top: -3px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    margin-top: -3px;
   }
 
   /* All the same stuff for Firefox */
