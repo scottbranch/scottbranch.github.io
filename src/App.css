@@ -10,6 +10,9 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); }
+    @media screen and (max-width: 768px) {
+      .app__form-step {
+        padding: 0 10px; } }
     .app__form-step .app__list-items,
     .app__form-step .form-control,
     .app__form-step button,
@@ -84,6 +87,9 @@
       justify-content: space-between; }
   .app__form-step--5 {
     transform: translate(-50%, -55%); }
+    @media screen and (max-width: 480px) {
+      .app__form-step--5 {
+        transform: translate(-50%, -33%); } }
     .app__form-step--5 h3 {
       max-width: 620px; }
     .app__form-step--5 .app__list-items {
@@ -97,6 +103,10 @@
       border-radius: 15px;
       color: #6b7c93;
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2); }
+      @media screen and (max-width: 768px) {
+        .app__form-step--5 .app__list-items {
+          flex-direction: column-reverse;
+          text-align: center; } }
     .app__form-step--5 h4 {
       font-size: 2.2rem;
       margin-bottom: 20px; }
@@ -113,6 +123,9 @@
       position: relative;
       overflow: hidden;
       display: inline-block; }
+      @media screen and (max-width: 768px) {
+        .app__form-step--5 .upload-btn-wrapper {
+          padding-bottom: 40px; } }
       .app__form-step--5 .upload-btn-wrapper:hover {
         cursor: pointer; }
     .app__form-step--5 button.image-button {
@@ -152,7 +165,9 @@
       color: #6b7c93;
       margin-bottom: 20px; }
     .app .boom img {
-      display: block; }
+      display: block;
+      max-width: 498px;
+      width: 100%; }
     .app .boom button {
       background: #6b7c93;
       color: white; }

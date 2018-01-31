@@ -13,6 +13,10 @@ $ns: '.app';
     top: 50%;
     transform: translate(-50%,-50%);
 
+    @media screen and (max-width: 768px) {
+      padding: 0 10px;
+    }
+
     .app__list-items,
     .form-control,
     button,
@@ -122,6 +126,10 @@ $ns: '.app';
 
   &__form-step--5 {
     transform: translate(-50%,-55%);
+
+    @media screen and (max-width: 480px) {
+      transform: translate(-50%,-33%);
+    }
     h3 {
       max-width: 620px;
     }
@@ -136,6 +144,11 @@ $ns: '.app';
       border-radius: 15px;
       color: #6b7c93;
       box-shadow: 0 8px 20px 0 rgba(0,0,0,.2);
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
     }
     h4 {
       font-size: 2.2rem;
@@ -157,6 +170,10 @@ $ns: '.app';
       position: relative;
       overflow: hidden;
       display: inline-block;
+
+      @media screen and (max-width: 768px) {
+        padding-bottom: 40px;
+      }
       
       &:hover {
         cursor: pointer;
@@ -216,6 +233,8 @@ $ns: '.app';
 
     img {
       display: block;
+      max-width: 498px;
+      width: 100%;
     }
 
     button {
